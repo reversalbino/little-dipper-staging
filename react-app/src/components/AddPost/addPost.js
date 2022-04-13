@@ -37,7 +37,7 @@ export default function AddPost() {
                 <img src={file ? file : null} alt='upload-preview' id='upload-preview' />
                 {/* <label htmlFor='input-file'>File Input</label>
                 <input type='file' hidden id='input-file' accept="image/*" onChange={(e) => setImage(() => e.target.files[0])} /> */}
-                <div id='upload'>
+                <div id='upload-div'>
                     <label htmlFor='img' id='select-file-button'>SELECT IMAGE</label>
                     <input type="file" id="img" name="img" accept="image/*"
                         // value={image?.name}
