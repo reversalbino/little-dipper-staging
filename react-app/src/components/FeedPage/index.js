@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import * as imageActions from '../../store/images'
+import * as imageActions from '../../store/images';
+import LoadingAnimation from '../LoadingAnimation';
 import './FeedPage.css';
 
 export default function FeedPage() {
@@ -19,7 +20,7 @@ export default function FeedPage() {
     }, []);
 
     return !isLoaded ?
-        <h1>LOADING</h1>
+        <LoadingAnimation />
 
         :
 
