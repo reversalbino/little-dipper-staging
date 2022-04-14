@@ -4,7 +4,6 @@ import axios from 'axios';
 export default function AddPost() {
     const [file, setFile] = useState();
     const [imageTitle, setImageTitle] = useState('');
-    let temp = 'https://little-dipper.s3.us-west-2.amazonaws.com/77D4569D-EF89-40FA-901F-AFD528AA59FC.jpeg';
 
     async function AWSUpload() {
         if (!file) return console.log('upload an image first');
@@ -28,7 +27,11 @@ export default function AddPost() {
         // const newImageUrl = await AWSUpload();
         // await AWSUpload();
         e.preventDefault();
-        AWSUpload();
+        let url = AWSUpload();
+        const post = {
+            postImageUrl: url,
+            title: imageTitle
+        }
     }
 
     return (
@@ -55,7 +58,6 @@ export default function AddPost() {
                 />
                 <button type='submit'>Submit</button>
             </form>
-            {/* <img src={temp} alt='new' /> */}
         </div>
     )
 }
