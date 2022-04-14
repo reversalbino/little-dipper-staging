@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import AddPost from './components/AddPost/addPost';
+import FeedPage from './components/FeedPage';
 
 function App() {
     const [loaded, setLoaded] = useState(false);
@@ -42,7 +43,7 @@ function App() {
                     <User />
                 </ProtectedRoute>
                 <ProtectedRoute path='/' exact={true} >
-                    <h1>My Home Page</h1>
+                    <FeedPage />
                 </ProtectedRoute>
                 <ProtectedRoute path='/pictures/new' exact={true} >
                     <AddPost />

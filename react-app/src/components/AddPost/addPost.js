@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
+import * as imageActions from '../../store/images';
+
 export default function AddPost() {
+    const history = useHistory();
+    const dispatch = useDispatch();
     const [file, setFile] = useState();
     const [imageTitle, setImageTitle] = useState('');
 
@@ -13,25 +19,25 @@ export default function AddPost() {
 
 		const res = await axios.post("/api/s3/upload/", formData);
 
-        console.log('AWSUpload ~ response', res);
+        console.log('AWSUpload ~ response', res.data);
 
 		return res.data
-    }
-
-    function handleChange(e) {
-        setFile(e.target.files[0].name);
-        AWSUpload();
     }
 
     async function postSubmit(e) {
         // const newImageUrl = await AWSUpload();
         // await AWSUpload();
         e.preventDefault();
-        let url = AWSUpload();
+        let url = await AWSUpload();
+
         const post = {
             postImageUrl: url,
             title: imageTitle
         }
+
+        await dispatch(imageActions.addImage(post));
+
+        history.push('/');
     }
 
     return (
