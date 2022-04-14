@@ -59,13 +59,3 @@ export default function AddPost() {
         </div>
     )
 }
-
-
-//little-dipper
-// AWS_ACCESS_KEY_ID=AKIAQWFV2KFM3DKOTNP4
-// AWS_SECRET_ACCESS_KEY=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
-
-
-//little-dipper-text-bucket
-// AWS_ACCESS_KEY_ID=AKIAQWFV2KFM7DFGKAM5
-// AWS_SECRET_ACCESS_KEY=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
