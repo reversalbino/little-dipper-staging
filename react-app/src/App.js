@@ -10,6 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import AddPost from './components/AddPost/addPost';
 import FeedPage from './components/FeedPage';
+import SinglePostPage from './components/SinglePostPage';
 
 function App() {
     const [loaded, setLoaded] = useState(false);
@@ -47,6 +48,9 @@ function App() {
                 </ProtectedRoute>
                 <ProtectedRoute path='/pictures/new' exact={true} >
                     <AddPost />
+                </ProtectedRoute>
+                <ProtectedRoute path='/pictures/:id'>
+                    <SinglePostPage />
                 </ProtectedRoute>
             </Switch>
         </BrowserRouter>

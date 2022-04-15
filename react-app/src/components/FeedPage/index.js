@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import * as imageActions from '../../store/images';
 import LoadingAnimation from '../LoadingAnimation';
+import PostModal from '../PostModal/PostModal';
 import './FeedPage.css';
 
 export default function FeedPage() {

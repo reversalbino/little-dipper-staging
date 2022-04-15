@@ -7,7 +7,6 @@ from sqlalchemy import desc, or_
 
 images_routes = Blueprint('images', __name__)
 
-
 #GET ALL IMAGES
 @images_routes.route('/')
 def get_images():
