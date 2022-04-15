@@ -7,7 +7,7 @@ from sqlalchemy import desc, or_
 
 images_routes = Blueprint('images', __name__)
 
-#GET ALL IMAGES
+# GET ALL IMAGES
 @images_routes.route('/')
 def get_images():
     posts = Post.query.all()
@@ -16,6 +16,10 @@ def get_images():
     posts = [post.to_dict() for post in posts]
 
     return jsonify(posts)
+
+
+# GET SINGLE IMAGE
+# @images_routes.route
 
 
 # UPLOAD IMAGE
