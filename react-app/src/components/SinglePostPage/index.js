@@ -11,9 +11,13 @@ export default function SinglePostPage() {
     const dispatch = useDispatch();
     const history = useHistory();
     const { id } = useParams();
-    const [isLoaded, setIsLoaded] = useState(false);
+
     const post = useSelector(state => state?.images[+id]);
     const sessionUser = useSelector(state => state.session.user)
+
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [editPost, setEditPost] = useState(false);
+    const [newTitle, setNewTitle] = useState('')
 
     useEffect(() => {
         (async () => {
@@ -52,10 +56,26 @@ export default function SinglePostPage() {
                     <img src={post?.user?.profileImageUrl === '/default-profile-image.png' ? defaultProfileImage : post.user.profileImageUrl} alt='user' id='user-profile-image'/>
                 </div>
                 <div id='post-information-text'>
-                    <h1>{post.title} by <Link to={`/users/${post.user.id}`}>{post.user?.username}</Link></h1>
+                    {editPost ?
+                        <input
+                            type='text'
+                            value={newTitle}
+                            onChange={(e) => setNewTitle(e.target.value)}
+                            placeholder={newTitle}
+                        />
+
+                    :
+                        <h1>
+                            {post?.title}
+                        </h1>
+                    }
+                    <h1>&nbsp;by <Link to={`/users/${post.user.id}`}>{post.user?.username}</Link></h1>
                 </div>
                 {sessionUser.id === post.user.id &&
-                    <button onClick={() => deletePost()}>Delete</button>
+                    <div id='edit-and-delete-buttons'>
+                        <button onClick={() => deletePost()} id='delete-button'>Delete</button>
+                        <button onClick={() => setEditPost(!editPost)} id='edit-button'>{editPost ? 'Save' : 'Edit'}</button>
+                    </div>
                 }
             </div>
         </div>
