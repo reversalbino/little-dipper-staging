@@ -28,14 +28,20 @@ export default function FeedPage() {
         :
 
         <>
-            {images.map(image => {
-                return image.id && (
-                    <div className='single-feed-post' key={image.id}>
-                        <Link to={`/pictures/${image.id}`}>
-                            <img src={image.postImageUrl} alt='something goes here' />
-                        </Link>
-                    </div>
-                )
-            })}
+            {images.length > 1 ?
+                images?.map(image => {
+                    return image.id && (
+                        <div className='single-feed-post' key={image?.id}>
+                            <Link to={`/pictures/${image?.id}`}>
+                                <img src={image?.postImageUrl} alt='something goes here' />
+                            </Link>
+                        </div>
+                    )
+                })
+
+            :
+
+                <h1>No posts found</h1>
+            }
         </>
 }

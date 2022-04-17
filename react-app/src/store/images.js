@@ -2,6 +2,7 @@
 const LOAD_IMAGE = 'images/LOAD_IMAGE';
 const LOAD_IMAGES = 'images/LOAD_IMAGES';
 const ADD_IMAGE = 'images/ADD_IMAGE';
+const REMOVE_IMAGE = 'images/REMOVE_IMAGE'
 
 const loadImage = (image) => ({
     type: LOAD_IMAGE,
@@ -18,12 +19,18 @@ const addImagePost = (image) => ({
     payload: image
 });
 
+const removeImage = (imageId) => ({
+    type: REMOVE_IMAGE,
+    payload: imageId
+})
+
 export const getImage = (id) => async (dispatch) => {
-    const data = await fetch(`/api/images/${id}`);
+    const data = await fetch(`/api/images/${id}/`);
 
     if(data.ok) {
         const response = await data.json();
         dispatch(loadImage(response));
+        return response;
     }
 }
 
@@ -50,13 +57,26 @@ export const addImage = post => async (dispatch) => {
 
     if(data.ok) {
         const response = await data.json();
-        console.log('addImage ~ res', response);
 
         dispatch(addImagePost(response));
         return response;
     }
 
     return 'COULDN\'T ADD POST';
+}
+
+export const deleteImage = id => async (dispatch) => {
+    const data = await fetch(`/api/images/${id}/`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if(data.ok) {
+        const deletedPostId = await data.json();
+        dispatch(removeImage(deletedPostId));
+    }
 }
 
 export default function imagesReducer(state = { images: {} }, action) {
@@ -71,8 +91,6 @@ export default function imagesReducer(state = { images: {} }, action) {
         case LOAD_IMAGES: {
             const newState = { ...state };
 
-            console.log(Array.isArray(action.payload));
-
             for(let i = 0; i < action.payload.length; i++) {
                 newState[action.payload[i].id] = action.payload[i];
             }
@@ -83,6 +101,13 @@ export default function imagesReducer(state = { images: {} }, action) {
             const newState = { ...state };
             // newState.images = { ...state.images };
             newState[action.payload.id] = action.payload;
+
+            return newState;
+        }
+        case REMOVE_IMAGE: {
+            const newState = { ...state };
+
+            delete newState[action.payload];
 
             return newState;
         }

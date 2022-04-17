@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
-from itsdangerous import json
 from app.forms import CreatePostForm, EditPostForm
 from app.models import db, Post
 from app.api.utils import validation_errors_to_error_messages
@@ -19,7 +18,14 @@ def get_images():
 
 
 # GET SINGLE IMAGE
-# @images_routes.route
+@images_routes.route('/<int:postId>/')
+def get_single_image(postId):
+    post = Post.query.get(postId).to_dict()
+
+    if post:
+        return jsonify(post)
+    else:
+        return jsonify('Not found'), 401
 
 
 # UPLOAD IMAGE
@@ -43,3 +49,16 @@ def create_image():
     print(form.errors)
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@images_routes.route('/<int:postId>/', methods=['DELETE'])
+def delete_image(postId):
+    image = Post.query.get(postId)
+    sessionUserId = session['_user_id']
+
+    if image.to_dict()['userId'] == int(sessionUserId):
+        db.session.delete(image)
+        db.session.commit()
+        return jsonify(postId)
+    else:
+        return jsonify('Invalid Request'), 401

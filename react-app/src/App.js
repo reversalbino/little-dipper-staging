@@ -52,6 +52,9 @@ function App() {
                 <ProtectedRoute path='/pictures/:id'>
                     <SinglePostPage />
                 </ProtectedRoute>
+                <Route>
+                    <h1>Page not found</h1>
+                </Route>
             </Switch>
         </BrowserRouter>
     );
