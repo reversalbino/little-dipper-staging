@@ -27,7 +27,11 @@ export default function SinglePostPage() {
             // }
             setIsLoaded(true);
         })()
-    }, []);
+    }, [dispatch, id]);
+
+    async function saveNewTitle() {
+        await dispatch(imageActions.editPost(newTitle));
+    }
 
     async function deletePost() {
         setIsLoaded(false);
@@ -74,7 +78,16 @@ export default function SinglePostPage() {
                 {sessionUser.id === post.user.id &&
                     <div id='edit-and-delete-buttons'>
                         <button onClick={() => deletePost()} id='delete-button'>Delete</button>
-                        <button onClick={() => setEditPost(!editPost)} id='edit-button'>{editPost ? 'Save' : 'Edit'}</button>
+                        {!editPost && <button onClick={() => setEditPost(true)} id='edit-button'>Edit</button>}
+                        {editPost &&
+                            <button
+                                onClick={() => {
+                                    setEditPost(false);
+                                    saveNewTitle();
+                                }}
+                                id='edit-button'
+                            >Edit
+                            </button>}
                     </div>
                 }
             </div>
