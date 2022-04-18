@@ -6,6 +6,7 @@ import * as imageActions from '../../store/images';
 import LoadingAnimation from '../LoadingAnimation';
 import './SinglePostPage.css';
 import defaultProfileImage from '../../static/default-profile-image.png';
+import CommentsSection from '../CommentsSection';
 
 export default function SinglePostPage() {
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export default function SinglePostPage() {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [editPost, setEditPost] = useState(false);
-    const [newTitle, setNewTitle] = useState('')
+    const [newTitle, setNewTitle] = useState('');
 
     useEffect(() => {
         (async () => {
@@ -30,7 +31,18 @@ export default function SinglePostPage() {
     }, [dispatch, id]);
 
     async function saveNewTitle() {
-        await dispatch(imageActions.editPost(newTitle));
+        if(newTitle.length > 50) {
+            window.alert('Title must be 50 characters or less');
+            setNewTitle(post?.title);
+            return;
+        }
+
+        const editedPost = {
+            id: post?.id,
+            title: newTitle
+        }
+
+        await dispatch(imageActions.editImage(editedPost));
     }
 
     async function deletePost() {
@@ -65,7 +77,7 @@ export default function SinglePostPage() {
                             type='text'
                             value={newTitle}
                             onChange={(e) => setNewTitle(e.target.value)}
-                            placeholder={newTitle}
+                            // placeholder={post.title}
                         />
 
                     :
@@ -86,10 +98,12 @@ export default function SinglePostPage() {
                                     saveNewTitle();
                                 }}
                                 id='edit-button'
-                            >Edit
+                            >
+                                Save
                             </button>}
                     </div>
                 }
             </div>
+            <CommentsSection />
         </div>
 }

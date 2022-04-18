@@ -2,7 +2,8 @@
 const LOAD_IMAGE = 'images/LOAD_IMAGE';
 const LOAD_IMAGES = 'images/LOAD_IMAGES';
 const ADD_IMAGE = 'images/ADD_IMAGE';
-const REMOVE_IMAGE = 'images/REMOVE_IMAGE'
+const REMOVE_IMAGE = 'images/REMOVE_IMAGE';
+const EDIT_IMAGE = 'images/EDIT_IMAGE';
 
 const loadImage = (image) => ({
     type: LOAD_IMAGE,
@@ -22,6 +23,11 @@ const addImagePost = (image) => ({
 const removeImage = (imageId) => ({
     type: REMOVE_IMAGE,
     payload: imageId
+});
+
+const changePost = (editedPost) => ({
+    type: EDIT_IMAGE,
+    payload: editedPost
 })
 
 export const getImage = (id) => async (dispatch) => {
@@ -79,6 +85,21 @@ export const deleteImage = id => async (dispatch) => {
     }
 }
 
+export const editImage = post => async (dispatch) => {
+    const data = await fetch(`/api/images/${post.id}/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(post)
+    });
+
+    if(data.ok) {
+        const response = await data.json();
+        dispatch(changePost(response))
+    }
+}
+
 export default function imagesReducer(state = { images: {} }, action) {
     switch (action.type) {
         case LOAD_IMAGE: {
@@ -108,6 +129,12 @@ export default function imagesReducer(state = { images: {} }, action) {
             const newState = { ...state };
 
             delete newState[action.payload];
+
+            return newState;
+        }
+        case EDIT_IMAGE: {
+            const newState = { ...state };
+            newState[action.payload.id] = action.payload;
 
             return newState;
         }

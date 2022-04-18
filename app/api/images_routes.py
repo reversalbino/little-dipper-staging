@@ -62,3 +62,24 @@ def delete_image(postId):
         return jsonify(postId)
     else:
         return jsonify('Invalid Request'), 401
+
+
+@images_routes.route('/<int:postId>/', methods=['PUT'])
+def edit_image(postId):
+    post = Post.query.get(postId)
+    form = EditPostForm()
+    userId = session['_user_id']
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        print('\n\n', userId, post.userId, '\n\n')
+        if int(userId) != int(post.userId):
+            return jsonify('Invalid Request'), 401
+        else:
+            print('\n\nequal\n\n')
+            post.title = form['title'].data
+            db.session.commit()
+            return jsonify(post.to_dict())
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
