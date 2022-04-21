@@ -70,7 +70,9 @@ export const getImage = (id) => async (dispatch) => {
 }
 
 export const getImages = () => async (dispatch) => {
+    console.log('about to get images');
     const data = await fetch('/api/images/');
+    console.log('back fom getting images')
 
     if(data.ok) {
         const response = await data.json();
