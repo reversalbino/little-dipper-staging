@@ -130,7 +130,6 @@ export const editImage = post => async (dispatch) => {
 }
 
 export const addCommentToPost = (comment) => async (dispatch) => {
-    console.log('HERE', comment)
     const data = await fetch(`/api/comments/${comment.postId}/`, {
         method: 'POST',
         headers: {
@@ -224,8 +223,16 @@ export default function imagesReducer(state = { images: {} }, action) {
             return newState;
         }
         case ADD_COMMENT: {
-            const newState = { ...state };
-            newState[action.payload.postId].comments[action.payload.id] = action.payload;
+            const newState = {
+                ...state,
+                [action.payload.postId]: {
+                    ...state[action.payload.postId],
+                    comments: {
+                        ...state[action.payload.postId].comments,
+                        [action.payload.id]: action.payload
+                    }
+                }
+            };
 
             return newState;
         }
