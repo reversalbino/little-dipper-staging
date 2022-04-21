@@ -1,7 +1,12 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import SingleComment from '../SingleComment';
+import * as commentActions from '../../store/images';
 
 export default function CommentsList({ comments }) {
+    const dispatch = useDispatch();
+
     const sessionUser = useSelector(state => state.session?.user);
 
     return !(comments.length > 0) ?
@@ -12,7 +17,9 @@ export default function CommentsList({ comments }) {
 
         <ul>
             {comments.map(comment => {
-                return <li key={comment.id}>{comment.content}</li>
+                return (
+                    <SingleComment key={comment.id} comment={comment} />
+                )
             })}
         </ul>
 }
