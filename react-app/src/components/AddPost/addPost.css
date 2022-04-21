@@ -1,0 +1,71 @@
+#new-picture-div {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    text-align: center;
+}
+
+#preview-div {
+    height: 600px;
+    width: 1000px;
+    margin: auto;
+    border: 2px solid black;
+}
+
+#upload-file {
+    text-align: center;
+    margin-top: 280px;
+}
+
+#upload-preview {
+    max-height: 600px;
+    max-width: 1000px;
+    object-fit: contain;
+    margin: auto;
+}
+
+#new-picture-form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    width: 400px;
+    height: 200px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#select-file-button {
+    height: 40px;
+    width: 150px;
+    background-color: #3498db;
+    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    margin: auto;
+}
+
+#post-title {
+    margin: 20px;
+    height: 30px;
+    width: 200px;
+    margin: auto;
+    font-size: 18px;
+}
+
+#new-picture-form > button {
+    height: 40px;
+    width: 150px;
+    border-radius: 10px;
+    font-size: 18px;
+    margin: auto;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+}
+
+#new-picture-form > button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}

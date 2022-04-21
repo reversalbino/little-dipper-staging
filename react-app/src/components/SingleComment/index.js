@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as imageActions from '../../store/images';
+import defaultProfileImage from '../../static/default-profile-image.png';
+import './SingleComment.css'
 
 export default function SingleComment({ comment }) {
     const dispatch = useDispatch();
@@ -39,7 +41,8 @@ export default function SingleComment({ comment }) {
 
     :
 
-    <div id='single-comment'>
+    <div className='single-comment'>
+        <img src={comment.user.profileImageUrl === '/default-profile-image.png' ? defaultProfileImage : comment.user.profileImageUrl} alt={comment.user.username} />
         <p>{comment.content}</p>
         {sessionUser.id === comment.userId &&
             <div id='edit-and-delete-comment-buttons'>
