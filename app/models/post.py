@@ -12,6 +12,19 @@ class Post(db.Model):
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
     user = db.relationship('User', back_populates='posts')
+    comments = db.relationship('Comment', back_populates='post', cascade="all, delete")
+
+    def to_dict_lite(self):
+        return {
+            'id': self.id,
+            'userId': self.userId,
+            'postImageUrl': self.postImageUrl,
+            'title': self.title,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt,
+            'user': self.user.to_dict()
+        }
+
 
     def to_dict(self):
         return {
@@ -19,6 +32,7 @@ class Post(db.Model):
             'userId': self.userId,
             'postImageUrl': self.postImageUrl,
             'title': self.title,
+            'comments': [comment.to_dict() for comment in self.comments],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt,
             'user': self.user.to_dict()

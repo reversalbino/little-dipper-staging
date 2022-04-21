@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length
 
 class CreatePostForm(FlaskForm):
     postImageUrl = StringField('ImageURL', validators=[DataRequired()])
@@ -8,4 +8,4 @@ class CreatePostForm(FlaskForm):
 
 
 class EditPostForm(FlaskForm):
-    title = StringField('Title')
+    title = StringField('Title', validators=[DataRequired()])

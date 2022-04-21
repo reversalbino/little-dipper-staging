@@ -30,7 +30,7 @@ def upload_image():
     )
 
     uploadFile = {'file': (OBJECT_NAME, file)}
-    print('\n\n\n', uploadFile, '\n\n\n')
+    # print('\n\n\n', uploadFile, '\n\n\n')
     requests.post(response['url'], data=response['fields'], files=uploadFile)
     url  = response['url'] + response['fields']['key']
 
