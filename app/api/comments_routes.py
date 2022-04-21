@@ -36,6 +36,30 @@ def add_comment(postId):
     return jsonify('Invalid Request'), 401
 
 
+@comments_routes.route('/<int:commentId>/', methods=['PUT'])
+def edit_comment(commentId):
+    form = EditCommentForm()
+    comment = request.get_json()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        comment_to_edit = Comment.query.get(commentId)
+
+        print('\n\n\nnew comment', comment.get('userId'))
+
+        print('\n\n\nexisting comment', comment_to_edit.userId)
+
+        if int(comment.get('userId')) == int(comment_to_edit.userId):
+            comment_to_edit.content = form['content'].data
+            db.session.commit()
+
+            return jsonify(comment_to_edit.to_dict())
+
+    return jsonify('Invalid Request'), 401
+
+
+
 @comments_routes.route('/<int:commentId>/', methods=['DELETE'])
 def remove_comment(commentId):
     comment = Comment.query.get(commentId)
@@ -44,5 +68,6 @@ def remove_comment(commentId):
     if int(comment.userId) == int(sessionId):
         db.session.delete(comment)
         db.session.commit()
+        return jsonify({ 'id': commentId })
     else:
         return jsonify('Invalid Request'), 401

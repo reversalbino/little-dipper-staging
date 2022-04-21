@@ -49,9 +49,9 @@ const addComment = (newComment) => ({
     payload: newComment
 });
 
-const deleteComment = (deletedCommentInfo) => ({
+const deleteComment = (deletedComment) => ({
     type: DELETE_COMMENT,
-    payload: deletedCommentInfo
+    payload: deletedComment
 });
 
 const editComment = (editedComment) => ({
@@ -145,7 +145,7 @@ export const addCommentToPost = (comment) => async (dispatch) => {
 }
 
 export const editPostComment = (comment) => async (dispatch) => {
-    const data = await fetch(`/api/${comment.postId}/comments/`, {
+    const data = await fetch(`/api/comments/${comment.id}/`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -159,8 +159,8 @@ export const editPostComment = (comment) => async (dispatch) => {
     }
 }
 
-export const deletePostComment = (commentId, postId) => async (dispatch) => {
-    const data = await fetch(`/api/${commentId}/comments/`, {
+export const deletePostComment = (comment) => async (dispatch) => {
+    const data = await fetch(`/api/comments/${comment.id}/`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -168,8 +168,8 @@ export const deletePostComment = (commentId, postId) => async (dispatch) => {
     });
 
     if(data.ok) {
-        const response = await data.json();
-        dispatch(deleteComment(response));
+        // const response = await data.json();
+        dispatch(deleteComment(comment));
     }
 }
 
@@ -233,6 +233,36 @@ export default function imagesReducer(state = { images: {} }, action) {
                     }
                 }
             };
+
+            return newState;
+        }
+        case EDIT_COMMENT: {
+            const newState = {
+                ...state,
+                [action.payload.postId]: {
+                    ...state[action.payload.postId],
+                    comments: {
+                        ...state[action.payload.postId].comments,
+                    }
+                }
+            };
+
+            newState[action.payload.postId].comments[action.payload.id] = action.payload
+
+            return newState;
+        }
+        case DELETE_COMMENT: {
+            const newState = {
+                ...state,
+                [action.payload.postId]: {
+                    ...state[action.payload.postId],
+                    comments: {
+                        ...state[action.payload.postId].comments,
+                    }
+                }
+            };
+
+            delete newState[action.payload.postId].comments[action.payload.id]
 
             return newState;
         }
