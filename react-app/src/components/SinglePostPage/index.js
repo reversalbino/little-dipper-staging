@@ -18,11 +18,6 @@ export default function SinglePostPage() {
     const post = useSelector(state => state?.images[+id]);
     const sessionUser = useSelector(state => state.session.user);
 
-    // const comments = useSelector(state => Object.values(state?.images[+id]?.comments).filter(comment => 'content' in comment));
-    // const comments = !post ? [] : Object.values(post?.comments).filter(comment => 'content' in comment);
-    // console.log('SinglePostPage ~ comments', comments);
-    // const comments = post ? Object.values(post?.comments) : [];
-
     const [isLoaded, setIsLoaded] = useState(false);
     const [editPost, setEditPost] = useState(false);
     const [newTitle, setNewTitle] = useState(useSelector(state => state?.images[+id]?.title));
@@ -30,16 +25,10 @@ export default function SinglePostPage() {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        console.log('post updated');
         if(post?.comments) {
             setComments(Object.values(post.comments));
         }
-        // setComments(Object.values(post?.comments).filter(comment => 'content' in comment));
     }, [post]);
-
-    useEffect(() => {
-        console.log(comments)
-    }, [comments]);
 
     useEffect(() => {
         (async () => {

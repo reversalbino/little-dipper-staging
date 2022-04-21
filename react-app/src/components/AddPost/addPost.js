@@ -12,14 +12,13 @@ export default function AddPost() {
     const [imageTitle, setImageTitle] = useState('');
 
     async function AWSUpload() {
-        if (!file) return console.log('upload an image first');
+        if (!file) return window.alert('upload an image first');
 		const formData = new FormData()
 
 		formData.append('file', file)
 
 		const res = await axios.post("/api/s3/upload/", formData);
 
-        console.log('AWSUpload ~ response', res.data);
 
 		return res.data
     }
@@ -51,7 +50,6 @@ export default function AddPost() {
                     <input type="file" id="img" name="img" accept="image/*"
                         // value={image?.name}
                         onChange={(e) => {
-                            console.log(e.target.files[0]);
                             return setFile(e.target.files[0]);
                         }}
                     />

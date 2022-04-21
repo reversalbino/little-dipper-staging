@@ -70,9 +70,7 @@ export const getImage = (id) => async (dispatch) => {
 }
 
 export const getImages = () => async (dispatch) => {
-    console.log('about to get images');
     const data = await fetch('/api/images/');
-    console.log('back fom getting images')
 
     if(data.ok) {
         const response = await data.json();
@@ -81,7 +79,6 @@ export const getImages = () => async (dispatch) => {
 }
 
 export const addImage = post => async (dispatch) => {
-    console.log(post);
     const data = await fetch('/api/images/', {
         method: 'POST',
         headers: {
@@ -185,8 +182,6 @@ export default function imagesReducer(state = { images: {} }, action) {
             for(let comment of action.payload.comments) {
                 newComments[comment.id] = comment
             }
-
-            console.log(newComments);;
 
             newState[action.payload.id].comments = newComments;
 
