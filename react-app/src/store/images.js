@@ -5,6 +5,13 @@ const ADD_IMAGE = 'images/ADD_IMAGE';
 const REMOVE_IMAGE = 'images/REMOVE_IMAGE';
 const EDIT_IMAGE = 'images/EDIT_IMAGE';
 
+const LOAD_COMMENTS = 'images/LOAD_COMMENTS';
+const ADD_COMMENT = 'images/ADD_COMMENT';
+const DELETE_COMMENT = 'images/DELETE_COMMENT';
+const EDIT_COMMENT = 'images/EDIT_COMMENT';
+
+// Images
+
 const loadImage = (image) => ({
     type: LOAD_IMAGE,
     payload: image
@@ -28,7 +35,29 @@ const removeImage = (imageId) => ({
 const changePost = (editedPost) => ({
     type: EDIT_IMAGE,
     payload: editedPost
-})
+});
+
+// Comments
+
+const loadComments = (comments) => ({
+    type: LOAD_COMMENTS,
+    payload: comments
+});
+
+const addComment = (newComment) => ({
+    type: ADD_COMMENT,
+    payload: newComment
+});
+
+const deleteComment = (deletedCommentInfo) => ({
+    type: DELETE_COMMENT,
+    payload: deletedCommentInfo
+});
+
+const editComment = (editedComment) => ({
+    type: EDIT_COMMENT,
+    payload: editedComment
+});
 
 export const getImage = (id) => async (dispatch) => {
     const data = await fetch(`/api/images/${id}/`);
@@ -45,8 +74,6 @@ export const getImages = () => async (dispatch) => {
 
     if(data.ok) {
         const response = await data.json();
-        console.log('getImages ~ response', response);
-
         dispatch(loadImages(response))
     }
 }
@@ -100,12 +127,67 @@ export const editImage = post => async (dispatch) => {
     }
 }
 
+export const addCommentToPost = (comment) => async (dispatch) => {
+    console.log('HERE', comment)
+    const data = await fetch(`/api/comments/${comment.postId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment)
+    });
+
+    if(data.ok) {
+        const response = await data.json();
+        dispatch(addComment(response));
+    }
+}
+
+export const editPostComment = (comment) => async (dispatch) => {
+    const data = await fetch(`/api/${comment.postId}/comments/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment)
+    });
+
+    if(data.ok) {
+        const response = await data.json();
+        dispatch(editComment(response));
+    }
+}
+
+export const deletePostComment = (commentId, postId) => async (dispatch) => {
+    const data = await fetch(`/api/${commentId}/comments/`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if(data.ok) {
+        const response = await data.json();
+        dispatch(deleteComment(response));
+    }
+}
+
 export default function imagesReducer(state = { images: {} }, action) {
     switch (action.type) {
         case LOAD_IMAGE: {
             const newState = { ...state };
 
             newState[action.payload.id] = action.payload;
+
+            const newComments = {};
+
+            for(let comment of action.payload.comments) {
+                newComments[comment.id] = comment
+            }
+
+            console.log(newComments);;
+
+            newState[action.payload.id].comments = newComments;
 
             return newState;
         }
@@ -115,6 +197,7 @@ export default function imagesReducer(state = { images: {} }, action) {
             for(let i = 0; i < action.payload.length; i++) {
                 newState[action.payload[i].id] = action.payload[i];
             }
+
 
             return newState;
         }
@@ -135,6 +218,12 @@ export default function imagesReducer(state = { images: {} }, action) {
         case EDIT_IMAGE: {
             const newState = { ...state };
             newState[action.payload.id] = action.payload;
+
+            return newState;
+        }
+        case ADD_COMMENT: {
+            const newState = { ...state };
+            newState[action.payload.postId].comments[action.payload.id] = action.payload;
 
             return newState;
         }

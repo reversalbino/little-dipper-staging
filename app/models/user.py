@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     updatedAt = db.Column(db.DateTime(timezone=True), server_onupdate=func.now(), server_default=func.now())
 
     posts = db.relationship('Post', back_populates='user', cascade="all, delete")
+    comments = db.relationship('Comment', back_populates='user', cascade="all, delete")
 
     @property
     def password(self):

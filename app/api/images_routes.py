@@ -12,7 +12,7 @@ def get_images():
     posts = Post.query.all()
     print('\n\n', posts, '\n\n')
 
-    posts = [post.to_dict() for post in posts]
+    posts = [post.to_dict_lite() for post in posts]
 
     return jsonify(posts)
 
@@ -20,10 +20,10 @@ def get_images():
 # GET SINGLE IMAGE
 @images_routes.route('/<int:postId>/')
 def get_single_image(postId):
-    post = Post.query.get(postId).to_dict()
+    post = Post.query.get(postId)
 
     if post:
-        return jsonify(post)
+        return jsonify(post.to_dict())
     else:
         return jsonify('Not found'), 401
 

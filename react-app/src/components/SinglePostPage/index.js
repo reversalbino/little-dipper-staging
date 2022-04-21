@@ -7,6 +7,8 @@ import LoadingAnimation from '../LoadingAnimation';
 import './SinglePostPage.css';
 import defaultProfileImage from '../../static/default-profile-image.png';
 import CommentsSection from '../CommentsSection';
+import AddCommentForm from '../AddCommentForm';
+import CommentsList from '../CommentsList';
 
 export default function SinglePostPage() {
     const dispatch = useDispatch();
@@ -14,11 +16,13 @@ export default function SinglePostPage() {
     const { id } = useParams();
 
     const post = useSelector(state => state?.images[+id]);
-    const sessionUser = useSelector(state => state.session.user)
-
+    const sessionUser = useSelector(state => state.session.user);
+    const comments = useSelector(state => Object.values(!post ? {} : post?.comments).filter(comment => 'content' in comment));
+    console.log('SinglePostPage ~ comments', comments);
+    // const comments = [];
     const [isLoaded, setIsLoaded] = useState(false);
     const [editPost, setEditPost] = useState(false);
-    const [newTitle, setNewTitle] = useState('');
+    const [newTitle, setNewTitle] = useState(useSelector(state => state?.images[+id]?.title));
 
     useEffect(() => {
         (async () => {
@@ -59,13 +63,14 @@ export default function SinglePostPage() {
     }
 
     return !isLoaded ?
+
         <LoadingAnimation />
 
         :
 
         <div id='single-post'>
             <div id='image-div'>
-                <img src={post?.postImageUrl} alt={post.title} id='image' />
+                <img src={post?.postImageUrl} alt={post?.title} id='image' />
             </div>
             <div id='post-information'>
                 <div id='post-user-profile-image-div'>
@@ -104,6 +109,10 @@ export default function SinglePostPage() {
                     </div>
                 }
             </div>
-            <CommentsSection />
+            <div id='comments-section'>
+                <CommentsSection />
+                <AddCommentForm post={post} />
+                <CommentsList comments={comments} />
+            </div>
         </div>
 }
