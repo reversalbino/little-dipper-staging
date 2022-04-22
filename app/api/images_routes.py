@@ -2,14 +2,13 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 from app.forms import CreatePostForm, EditPostForm
 from app.models import db, Post
 from app.api.utils import validation_errors_to_error_messages
-# from sqlalchemy import desc, or_
+from sqlalchemy import desc, or_
 
 images_routes = Blueprint('images', __name__)
 
 # GET ALL IMAGES
 @images_routes.route('/')
 def get_images():
-    print('\n\n\n GETTING ALL IMAGES \n\n\n')
     posts = Post.query.all()
     print('\n\n', posts, '\n\n')
 

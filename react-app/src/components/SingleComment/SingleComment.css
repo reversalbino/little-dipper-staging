@@ -1,0 +1,12 @@
+.single-comment {
+    display: flex;
+    flex-flow: row nowrap;
+    border: 2px solid red;
+}
+
+.single-comment > img {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    padding: 10px;
+}

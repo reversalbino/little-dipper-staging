@@ -9,9 +9,7 @@ import './FeedPage.css';
 
 export default function FeedPage() {
     const dispatch = useDispatch();
-    const history = useHistory();
     let images = useSelector(state => Object.values(state.images).filter(image => 'id' in image));
-    console.log('FeedPage ~ images', images);
 
     const [isLoaded, setIsLoaded] = useState(false);
 
