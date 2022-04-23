@@ -34,6 +34,10 @@
     margin-top: 20px;
 }
 
+#select-file-button > label {
+    cursor: pointer;
+}
+
 #select-file-button {
     height: 40px;
     width: 150px;
@@ -43,6 +47,12 @@
     border-radius: 10px;
     border: none;
     margin: auto;
+    transition: background-color .15s ease-in-out;
+    cursor: pointer;
+}
+
+#select-file-button:hover {
+    background-color: #256793;
 }
 
 #post-title {
@@ -63,9 +73,14 @@
     background-color: #3498db;
     color: white;
     cursor: pointer;
+    transition: background-color .15s ease-in-out;
 }
 
-#new-picture-form > button:disabled {
-    background-color: gray;
-    cursor: not-allowed;
+#new-picture-form > button:hover {
+    background-color: #256793;
+}
+
+.submit-error {
+    color: red;
+    font-size: 18px;
 }
