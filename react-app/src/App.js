@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import AddPost from './components/AddPost/addPost';
 import FeedPage from './components/FeedPage';
 import SinglePostPage from './components/SinglePostPage';
+import Footer from './components/Footer/index';
 
 function App() {
     const [loaded, setLoaded] = useState(false);
@@ -56,6 +57,7 @@ function App() {
                     <h1>Page not found</h1>
                 </Route>
             </Switch>
+            <Footer />
         </BrowserRouter>
     );
 }

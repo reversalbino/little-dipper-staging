@@ -47,11 +47,15 @@ export default function SingleComment({ comment }) {
     <div className='single-comment'>
         <img src={comment.user.profileImageUrl === '/default-profile-image.png' ? defaultProfileImage : comment.user.profileImageUrl} alt={comment.user.username} />
         <p className='comment-text'>{comment.content}</p>
-        {sessionUser.id === comment.userId &&
+        {sessionUser.id === comment.userId ?
             <div id='edit-and-delete-comment-buttons'>
                 <button type='button' onClick={deleteComment}>Delete</button>
                 <button type='button' onClick={() => setEditComment(true)}>Edit</button>
             </div>
+
+            :
+
+            <div></div>
         }
     </div>
 }
