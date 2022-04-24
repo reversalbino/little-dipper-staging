@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as commentActions from '../../store/images';
+import './AddCommentForm.css';
 
 export default function AddCommentForm({ post }) {
     const dispatch = useDispatch();
@@ -9,12 +10,29 @@ export default function AddCommentForm({ post }) {
     const sessionUser = useSelector(state => state.session.user);
 
     const [commentContent, setCommentContent] = useState('');
+    const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
+
+    useEffect(() => {
+        let tempErrors = [];
+
+        if(commentContent === '') {
+            tempErrors.push('Please enter a comment');
+        }
+
+        if(commentContent.length > 255) {
+            tempErrors.push('Comment must be 255 characters or less');
+        }
+
+        setErrors(tempErrors)
+
+    }, [commentContent]);
 
     function addComment(e) {
         e.preventDefault();
 
-        if(commentContent.length > 255) {
-            window.alert('Comment must be 255 characters or less');
+        if(errors.length > 0) {
+            setShowErrors(true);
             return;
         }
 
@@ -25,10 +43,14 @@ export default function AddCommentForm({ post }) {
         }
 
         dispatch(commentActions.addCommentToPost(comment));
+        setCommentContent('');
     }
 
     return(
         <div id='new-comment-form'>
+            {showErrors &&
+                errors.map(error => <p key={error}>{error}</p>)
+            }
             <form onSubmit={addComment}>
                 <textarea
                     value={commentContent}

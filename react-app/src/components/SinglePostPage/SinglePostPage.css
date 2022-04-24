@@ -3,7 +3,6 @@
     flex-flow: column nowrap;
     justify-content: center;
     width: 100%;
-    border: 2px solid blue;
 }
 
 #image-div {
@@ -26,7 +25,6 @@
     margin: auto;
     height: 300px;
     width: 50%;
-    border: 2px solid red;
     align-items: center;
     justify-content: center;
 }
@@ -72,6 +70,29 @@
     display: flex;
     flex-flow: column nowrap;
     margin: auto;
+    justify-content: center;
     width: 700px;
-    border: 2px solid purple;
+    text-align: center;
+}
+
+/* a {
+    color: black;
+    text-decoration: underline;
+} */
+
+#edit-button, #delete-button {
+    height: 40px;
+    width: 100px;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    color: white;
+    background-color: #3498db;
+    transition: background-color .15s ease-in-out;
+    cursor: pointer;
+}
+
+#edit-button:hover, #delete-button:hover {
+    background-color: #256793;
 }

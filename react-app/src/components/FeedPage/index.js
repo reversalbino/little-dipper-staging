@@ -27,15 +27,17 @@ export default function FeedPage() {
 
         <>
             {images.length > 0 ?
-                images?.map(image => {
-                    return image.id && (
-                        <div className='single-feed-post' key={image?.id}>
-                            <Link to={`/pictures/${image?.id}`}>
-                                <img src={image?.postImageUrl} alt='something goes here' />
-                            </Link>
-                        </div>
-                    )
-                })
+                <div id='feed-images'>
+                    {images?.map(image => {
+                        return image.id && (
+                            <div className='single-feed-post' key={image?.id}>
+                                <Link to={`/pictures/${image?.id}`}>
+                                    <img src={image?.postImageUrl} alt='something goes here' className='feed-post-image'/>
+                                </Link>
+                            </div>
+                        )
+                    })}
+                </div>
 
             :
 

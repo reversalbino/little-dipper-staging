@@ -43,6 +43,7 @@ a {
     color: white;
 }
 
-#new-picture-button:hover, #logout-button:hover, #login-button:hover, #signup-button:hover {
+#new-picture-button:hover, #logout-button:hover, #login-button:hover,
+#signup-button:hover {
     background-color: #256793;
 }

@@ -21,8 +21,9 @@ export default function SinglePostPage() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [editPost, setEditPost] = useState(false);
     const [newTitle, setNewTitle] = useState(useSelector(state => state?.images[+id]?.title));
-
     const [comments, setComments] = useState([]);
+    const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
 
     useEffect(() => {
         if(post?.comments) {
@@ -41,6 +42,10 @@ export default function SinglePostPage() {
     }, [dispatch, id]);
 
     async function saveNewTitle() {
+        if(newTitle === undefined) {
+
+        }
+
         if(newTitle.length > 50) {
             window.alert('Title must be 50 characters or less');
             setNewTitle(post?.title);
@@ -96,7 +101,9 @@ export default function SinglePostPage() {
                             {post?.title}
                         </h1>
                     }
-                    <h1>&nbsp;by <Link to={`/users/${post.user.id}`}>{post.user?.username}</Link></h1>
+                    <h1>&nbsp;by {post.user?.username}
+                        {/* <Link to={`/users/${post.user.id}`} id='user-link'>{post.user?.username}</Link> */}
+                    </h1>
                 </div>
                 {sessionUser.id === post.user.id &&
                     <div id='edit-and-delete-buttons'>
@@ -116,7 +123,8 @@ export default function SinglePostPage() {
                 }
             </div>
             <div id='comments-section'>
-                <CommentsSection />
+                {/* <CommentsSection /> */}
+                <h1>Comments</h1>
                 <AddCommentForm post={post} />
                 <CommentsList comments={comments} />
             </div>
