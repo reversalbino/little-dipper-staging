@@ -10,18 +10,28 @@ import './addPost.css';
 export default function AddPost() {
     const history = useHistory();
     const dispatch = useDispatch();
+
     const [file, setFile] = useState();
     const [imageTitle, setImageTitle] = useState('');
-    const [isDisabled, setIsDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+    const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
 
     useEffect(() => {
-        if(file && imageTitle.length > 0) {
-            setIsDisabled(false);
+        let tempErrors = [];
+
+        if(imageTitle !== undefined && imageTitle.length === 0) {
+            tempErrors.push('Please provide a title');
         }
-        else {
-            setIsDisabled(true);
+        if(imageTitle !== undefined && imageTitle.length > 50) {
+            tempErrors.push('Title must be 50 characters or less');
         }
+        if(!file) {
+            tempErrors.push('Please provide an image');
+        }
+
+        setErrors(tempErrors);
+
     }, [imageTitle, file])
 
     async function AWSUpload() {
@@ -39,18 +49,14 @@ export default function AddPost() {
     async function postSubmit(e) {
         e.preventDefault();
 
-        setIsLoading(true);
-
-        let url = await AWSUpload();
-
-        if(imageTitle.length > 50) {
-            window.alert('Title must be 50 characters or less');
+        if(errors.length) {
+            setShowErrors(true);
             return;
         }
 
-        if(imageTitle.length === 0) {
-            window.alert('Please provide a title');
-        }
+        setIsLoading(true);
+
+        let url = await AWSUpload();
 
         const post = {
             postImageUrl: url,
@@ -87,9 +93,14 @@ export default function AddPost() {
                     id='post-title'
                     placeholder='Title'
                 />
+                {(errors.length > 0 && showErrors) &&
+                    <div className='submit-error'>
+                        {errors.map(error => <p key={error}>{error}</p>)}
+                    </div>
+                }
                 <button
                     type='submit'
-                    disabled={isDisabled}
+                    // disabled={errors.length > 0}
                 >Submit</button>
             </form>
         </div>

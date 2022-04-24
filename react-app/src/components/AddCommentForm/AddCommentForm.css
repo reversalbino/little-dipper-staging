@@ -1,33 +1,26 @@
-.single-comment {
+#new-comment-form {
+    width: 80%;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+#new-comment-form form {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
 }
 
-.single-comment > img {
-    height: 40px;
-    width: 40px;
-    border-radius: 100%;
-    padding: 10px;
-}
-
-.single-comment form {
-    width: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.single-comment form textarea {
-    width: 400px;
-    height: 60px;
+#new-comment-form textarea {
+    width: 80%;
+    height: 90px;
     font-size: 14px;
     resize: none;
+    left: 0;
 }
 
-.single-comment button {
+#new-comment-form form button {
     height: 30px;
     width: 70px;
     font-size: 14px;
@@ -40,6 +33,12 @@
     cursor: pointer;
 }
 
-.single-comment button:hover {
+#new-comment-form form button:hover {
     background-color: #256793;
+}
+
+.comment-text {
+    width: 300px;
+    overflow-x: scroll;
+    overflow-y: visible;
 }

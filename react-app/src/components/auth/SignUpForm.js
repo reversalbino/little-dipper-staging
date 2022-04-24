@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
+import background from '../../static/homepage-night-sky.jpg';
+
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
@@ -43,51 +45,60 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
+    <div id='homepage'>
+      <img id='background' src={background} alt='background' />
+      <div id='homepage-message'>
+        <h1>Share your view with the world</h1>
+      </div>
+      <form onSubmit={onSignUp}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
       <div>
-        <label>User Name</label>
+        {/* <label>User Name</label> */}
         <input
           type='text'
           name='username'
           onChange={updateUsername}
           value={username}
+          placeholder='Username'
         ></input>
       </div>
       <div>
-        <label>Email</label>
+        {/* <label>Email</label> */}
         <input
           type='text'
           name='email'
           onChange={updateEmail}
           value={email}
+          placeholder='Email'
         ></input>
       </div>
       <div>
-        <label>Password</label>
+        {/* <label>Password</label> */}
         <input
           type='password'
           name='password'
           onChange={updatePassword}
           value={password}
+          placeholder='Password'
         ></input>
       </div>
       <div>
-        <label>Repeat Password</label>
+        {/* <label>Repeat Password</label> */}
         <input
           type='password'
           name='repeat_password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
-          required={true}
+          placeholder='Confirm Password'
         ></input>
       </div>
-      <button type='submit'>Sign Up</button>
+      <button type='submit' id='signup-button-homepage'>Sign Up</button>
     </form>
+    </div>
   );
 };
 
