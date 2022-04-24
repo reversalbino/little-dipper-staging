@@ -1,130 +1,92 @@
-# Flask React Project
+# Little Dipper
 
-This is the starter for the Flask React project.
+<!-- # <img src="/public/static/images/logo.jpg" alt="profile page for logged-in user wireframe" style="width:50px;"/>   MoOA - *Museum of Online Art*  -->
 
-## Getting started
-### Dev Containers (M1 Users, follow this guide)
 
-1. Make sure you have the [Microsoft Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension installed. 
-2. Make sure you have [Docker](https://www.docker.com/products/docker-desktop/) installed on your computer. 
-3. Clone the repository (only this branch)
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
-4. Open the repo in VS Code. 
-5. Click "Open in Container" when VS Code prompts to open container in the bottom right hand corner. 
-6. **Be Patient!** The initial install will take a LONG time, it's building a container that has postgres preconfigured and even installing all your project dependencies. (For both flask and react!)
+<!-- ## Table of Contents
+  - [Description](#description)
+  - [Index](#index)
+  - [Link to live site](#link-to-live-site)
+  - [Technologies](#technologies)
+  - [Getting Started](#getting-started)
+  - [Demo](#demo)
+ -->
+ 
+## Link to live site
 
-   **Note:** This will take much less time on future starts because everything will be cached.
+Hosted on Heroku: [Little Dipper](https://little-dipper.herokuapp.com/)
 
-7. Once everything is up, be sure to make a `.env` file based on `.env.example` in both the root directory and the *react-app* directory before running your app. 
+## Description
 
-8. Get into your pipenv, migrate your database, seed your database, and run your flask app
+Little Dipper is a platform where users can share and comment on images. Little Dipper is clone of flickr.
 
-   ```bash
-   pipenv shell
-   ```
+## Index
+| [Features List](https://github.com/reversalbino/aa-little-dipper/wiki/Features) | [Database Schema](https://github.com/reversalbino/aa-little-dipper/wiki/DB-Schema) | [User Stories](https://github.com/reversalbino/aa-little-dipper/wiki/User-Stories) | [Wireframes](https://github.com/reversalbino/aa-little-dipper/wiki/Wireframes) |
 
-   ```bash
-   flask db upgrade
-   ```
 
-   ```bash
-   flask seed all
-   ```
 
-   ```bash
-   flask run
-   ```
 
-9. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+## Technologies
 
+HOLOGRAM was built using the following technologies:
 <br>
-
-### Standard (Traditional)
-
-1. Clone this repository (only this branch)
-
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
-
-2. Install dependencies
-
-      ```bash
-      pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
-      ```
-
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
-
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
-***
+<br>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original-wordmark.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain-wordmark.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original-wordmark.svg" style="width:60px;" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg" style="width:60px;" />
 
 
-*IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
 
-## Helpful commands
-|    Command            |    Purpose    |
-| -------------         | ------------- |
-| `pipenv shell`        | Open your terminal in the virtual environment and be able to run flask commands without a prefix |
-| `pipenv run`          | Run a command from the context of the virtual environment without actually entering into it. You can use this as a prefix for flask commands  |
-| `flask db upgrade`    | Check in with the database and run any needed migrations  |
-| `flask db downgrade`  | Check in with the database and revert any needed migrations  |
-| `flask seed all`      | Just a helpful syntax to run queries against the db to seed data. See the **app/seeds** folder for reference and more details |
-| `heroku login -i`      | Authenticate your heroku-cli using the command line. Drop the -i to authenticate via the browser |
-| `heroku authorizations:create` | Once authenticated, use this to generate an Oauth token |
-| `heroku run -a <app name>` | Run a command from within the deployed container on Heroku |
+## Getting Started
+To see Little Dipper live, please click the link provided above.
+To run Little Dipper locally, please follow these steps:
+`DISCLAIMER: you must be able to create an AWS S3 bucket in order to properly store images/audio files that are uploaded to the site. Upload functionality will not work without it`
+  <li>Clone the repository with  </li> 
+  
+    git clone https://github.com/reversalbino/aa-little-dipper.git
+    
+  <li>Create a database and database user. If using psql, the commands would be</li>
+  
+    psql
+    CREATE USER hologram_app WITH PASSWORD <password> CREATEDB;
+    CREATE DATABASE little_dipper_dev WITH OWNER little_dipper_app;
+    
+  <li>Navigate to the backend folder and install python packages </li>
+  
+    pipenv install
+    pipenv shell
+  
+  <li>Create and seed database with </li>
+  
+    flask db upgrade
+    flask seed all
+    
+  <li>Start the server with </li>
+  
+    flask run
+    
+  <li>Next, navigate to the react-app folder and run </li>
+  
+    npm install
+    
+  <li>Start the app with </li>
+  
+    npm start
+    
+  <li>You should now have Little Dipper running locally!</li>
+  
+## Future Features
 
-## Deploy to Heroku
-
-### Abstract
-This repo comes configured with Github Actions. When you push to your main branch, Github will automatically pull your code, package and push it to Heroku, and then release the new image and run db migrations. 
-
-### Writing your Dockerfile
-In order for the Github action to work effectively, it must have a configured docker file. In order to effectively deploy your site you need to code out the notes found in this [docker file](./Dockerfile)
-
-### Configuring Production Environment Variables 
-
-1. In your Heroku app settings you should have two environment variables set. 
-
-   |    Key          |    Value    |
-   | -------------   | ----------- |
-   | `DATABASE_URL`  | Autogenerated when adding postgres to Heroku app |
-   | `SECRET_KEY`    | Random string full of entropy |
-
-2. In your Github Actions Secrets you should have two environment variables set. You can find this webpage at the following address: *github.com/userID/repoName/settings/secrets/actions*
-
-   |    Key            |    Value    |
-   | -------------     | ----------- |
-   | `HEROKU_API_KEY`  | Heroku Oauth Token |
-   | `HEROKU_APP_NAME` | Heroku app name    |
-
-3. To get an Oauth token for Heroku, run the following command in your terminal already authenticated to the Heroku CLI and pull out the string on the Token key. 
-   ```bash
-   heroku authorizations:create 
-   ```
-# aa-little-dipper
+  <li>User Page</li>
+  <li>Albums</li>
+  <li>Image Metadata</li>
+  
