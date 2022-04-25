@@ -28,7 +28,7 @@ Little Dipper is a platform where users can share and comment on images. Little 
 
 ## Technologies
 
-HOLOGRAM was built using the following technologies:
+Little Dipper was built using the following technologies:
 <br>
 <br>
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" style="width:60px;" />
