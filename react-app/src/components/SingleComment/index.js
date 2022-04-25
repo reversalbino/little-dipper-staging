@@ -19,6 +19,12 @@ export default function SingleComment({ comment }) {
     function submitEditedComment(e) {
         e.preventDefault();
 
+        if(newComment === '') {
+            setNewComment(comment.content);
+            setEditComment(false);
+            return;
+        }
+
         const editedComment = { ...comment };
         editedComment.content = newComment;
 
