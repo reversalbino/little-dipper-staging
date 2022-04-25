@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 
+import * as sessionActions from '../../store/session';
 import background from '../../static/homepage-night-sky.jpg';
 
 const LoginPage = () => {
@@ -32,13 +33,17 @@ const LoginPage = () => {
     return <Redirect to='/' />;
   }
 
+  function demoLogin() {
+    dispatch(sessionActions.demoLogin());
+  }
+
   return (
     <div id='homepage'>
       <img id='background' src={background} alt='background' />
       <div id='homepage-message'>
         <h1>Share your view with the world</h1>
       </div>
-      <form onSubmit={onLogin}>
+      <form onSubmit={onLogin} id='login-form'>
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
@@ -65,6 +70,7 @@ const LoginPage = () => {
           />
         </div>
         <button type='submit' id='login-button-homepage'>Login</button>
+        <button type='button' id='demo-login-button' onClick={demoLogin}>Demo</button>
       </form>
     </div>
   );
