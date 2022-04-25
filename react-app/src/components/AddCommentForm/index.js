@@ -49,7 +49,7 @@ export default function AddCommentForm({ post }) {
     return(
         <div id='new-comment-form'>
             {showErrors &&
-                errors.map(error => <p key={error}>{error}</p>)
+                errors.map(error => <p id='error' key={error}>{error}</p>)
             }
             <form onSubmit={addComment}>
                 <textarea

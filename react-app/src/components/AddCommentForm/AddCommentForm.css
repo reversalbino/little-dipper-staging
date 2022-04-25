@@ -42,3 +42,7 @@
     overflow-x: scroll;
     overflow-y: visible;
 }
+
+#error {
+    color: red;
+}
