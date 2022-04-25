@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
+import * as sessionActions from '../../store/session';
 import background from '../../static/homepage-night-sky.jpg';
 
 const SignUpForm = () => {
@@ -44,13 +45,17 @@ const SignUpForm = () => {
     return <Redirect to='/' />;
   }
 
+  function demoLogin() {
+    dispatch(sessionActions.demoLogin());
+  }
+
   return (
     <div id='homepage'>
       <img id='background' src={background} alt='background' />
       <div id='homepage-message'>
         <h1>Share your view with the world</h1>
       </div>
-      <form onSubmit={onSignUp}>
+      <form onSubmit={onSignUp} id='signup-form'>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
@@ -97,6 +102,7 @@ const SignUpForm = () => {
         ></input>
       </div>
       <button type='submit' id='signup-button-homepage'>Sign Up</button>
+      <button type='button' id='demo-login-button' onClick={demoLogin}>Demo</button>
     </form>
     </div>
   );

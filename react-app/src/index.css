@@ -23,6 +23,14 @@
     z-index: 1;
 }
 
+#login-form {
+    height: 250px;
+}
+
+#signup-form {
+    height: 400px;
+}
+
 #homepage form {
     position: relative;
     z-index: 3;
@@ -31,7 +39,6 @@
     left: calc(100% - 400px - 20px);
     color: white;
     font-size: 20px;
-    height: 250px;
     display: flex;
     flex-flow: column nowrap;
     bottom: 600px;
@@ -45,7 +52,7 @@
     border-radius: 5px;
 }
 
-#login-button-homepage, #signup-button-homepage {
+#login-button-homepage, #demo-login-button, #signup-button-homepage {
     height: 40px;
     width: 200px;
     background-color: #3498db;
