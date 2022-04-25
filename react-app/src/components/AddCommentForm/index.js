@@ -44,6 +44,8 @@ export default function AddCommentForm({ post }) {
 
         dispatch(commentActions.addCommentToPost(comment));
         setCommentContent('');
+
+        setShowErrors(false);
     }
 
     return(
