@@ -23,6 +23,10 @@ const SignUpForm = () => {
         setErrors(data)
       }
     }
+    else {
+      let temp = ['Passwords don\'t match'];
+      setErrors(temp);
+    }
   };
 
   const updateUsername = (e) => {
