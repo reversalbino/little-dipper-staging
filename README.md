@@ -90,3 +90,4 @@ To run Little Dipper locally, please follow these steps:
   <li>Albums</li>
   <li>Image Metadata</li>
   
+# little-dipper-staging
