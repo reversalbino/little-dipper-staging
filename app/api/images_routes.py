@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from app.forms import CreatePostForm, EditPostForm, CreateTagForm
-from app.models import db, Post
+from app.models import db, Post, Tag
 from app.api.utils import validation_errors_to_error_messages
 from sqlalchemy import desc
 
@@ -85,13 +85,33 @@ def edit_image(postId):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-#ADD TAG TO IMAGE
-# @images_routes.route('/tag/<int:postId>/', methods=['POST'])
+# #ADD TAG TO IMAGE
+# @images_routes.route('/tags/<int:postId>/', methods=['POST'])
 # def add_tag(postId):
+#     print('\n\n\nBEFORE\n\n\n')
 #     form = CreateTagForm()
+#     print('\n\n\nAFTER\n\n\n')
 
 #     form['csrf_token'].data = request.cookies['csrf_token']
 
-#     image = Post.query.get(postId)
-
 #     if form.validate_on_submit():
+#         value = form['tag'].data
+#         tag = Tag.query.filter(Tag.tag.lower() == value.lower()).first()
+#         image = Post.query.get(postId)
+
+#         if tag:
+#             for post in tag.posts:
+#                 if int(post.id) == int(postId):
+#                     return jsonify('Image already has that tag'), 401
+
+#             tag.posts.append(image)
+#             return jsonify(tag.to_dict_lite())
+#         else:
+#             new_tag = Tag(value)
+#             db.session.add(new_tag)
+#             db.session.commit()
+
+#             new_tag.posts.add(image)
+#             return jsonify(tag.to_dict_lite())
+#     else:
+#         return jsonify('Failed'), 401

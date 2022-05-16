@@ -38,6 +38,5 @@ class Post(db.Model):
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt,
             'user': self.user.to_dict(),
-            'tags': []
-            # 'tags': [tag.to_dict_lite() for tag in self.tags]
+            'tags': [tag.to_dict_lite() for tag in self.tags]
         }

@@ -43,7 +43,9 @@ export default function AddTagForm({ tags, postId }) {
 
     return (
         <form onSubmit={addTag} >
+            <label for='tag-input'>Tag</label>
             <input
+                id='tag-input'
                 value={tag}
                 onChange={(e) => setTag(e.target.value)}
                 placeholder='Add new tag'

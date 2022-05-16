@@ -16,7 +16,7 @@ def add_tag(postId):
 
     if form.validate_on_submit():
         value = form['tag'].data
-        tag = Tag.query.filter(Tag.tag.lower() == value.lower()).first()
+        tag = Tag.query.filter(str(Tag.tag).lower() == value.lower()).first()
         image = Post.query.get(postId)
 
         if tag:
@@ -27,11 +27,14 @@ def add_tag(postId):
             tag.posts.append(image)
             return jsonify(tag.to_dict_lite())
         else:
-            new_tag = Tag(value)
+            value = {'tag': form['tag'].data}
+            new_tag = Tag(**value)
             db.session.add(new_tag)
             db.session.commit()
 
-            new_tag.posts.add(image)
-            return jsonify(tag.to_dict_lite())
+            new_tag.posts.append(image)
+            db.session.commit()
+
+            return jsonify(new_tag.to_dict_lite())
     else:
         return jsonify('Failed'), 401

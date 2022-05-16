@@ -10,6 +10,8 @@ const ADD_COMMENT = 'images/ADD_COMMENT';
 const DELETE_COMMENT = 'images/DELETE_COMMENT';
 const EDIT_COMMENT = 'images/EDIT_COMMENT';
 
+const ADD_TAG = 'images/ADD_TAG';
+
 // Images
 
 const loadImage = (image) => ({
@@ -58,6 +60,13 @@ const editComment = (editedComment) => ({
     type: EDIT_COMMENT,
     payload: editedComment
 });
+
+//Tags
+
+const createTag = (postIdAndTag) => ({
+    type: ADD_TAG,
+    payload: postIdAndTag
+})
 
 export const getImage = (id) => async (dispatch) => {
     const data = await fetch(`/api/images/${id}/`);
@@ -174,18 +183,19 @@ export const deletePostComment = (comment) => async (dispatch) => {
 // IMAGE TAGS
 
 export const addTagToPost = (tag, postId) => async (dispatch) => {
-
-    console.log(`\n\n\nCREATING TAG ${tag} ${postId}\n\n\n`)
-
     const data = await fetch(`/api/tags/${+postId}/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(tag)
+        body: JSON.stringify({tag})
     });
 
-    console.log('addTagToPost ~ data', data);
+    if(data.ok) {
+        const response = await data.json();
+        response.postId = postId
+        dispatch(createTag(response))
+    }
 }
 
 export default function imagesReducer(state = { images: {} }, action) {
@@ -276,6 +286,20 @@ export default function imagesReducer(state = { images: {} }, action) {
             };
 
             delete newState[action.payload.postId].comments[action.payload.id]
+
+            return newState;
+        }
+        case ADD_TAG: {
+            console.log('\n\ncurrent tags', state[action.payload.postId].tags, '\n\n')
+            console.log('\n\naction', action.payload, '\n\n')
+            const newState = {
+                ...state,
+                [action.payload.postId]: {
+                    ...state[action.payload.postId]
+                }
+            }
+
+            newState[action.payload.postId].tags = [ ...newState[action.payload.postId].tags, action.payload ];
 
             return newState;
         }

@@ -16,8 +16,7 @@ class Tag(db.Model):
         return {
             'id': self.id,
             'tag': self.tag,
-            # 'posts': [post.to_dict_lite() for post in self.posts],
-            'posts': [],
+            'posts': [post.to_dict_lite() for post in self.posts],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
         }
