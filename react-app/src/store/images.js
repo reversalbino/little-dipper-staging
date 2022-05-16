@@ -206,12 +206,17 @@ export default function imagesReducer(state = { images: {} }, action) {
             newState[action.payload.id] = action.payload;
 
             const newComments = {};
-
             for(let comment of action.payload.comments) {
                 newComments[comment.id] = comment
             }
-
             newState[action.payload.id].comments = newComments;
+
+            const tags = {};
+            for(let tag of action.payload.tags) {
+                tags[tag.id] = tag;
+            }
+            newState[action.payload.id].tags = tags;
+
 
             return newState;
         }
@@ -295,11 +300,13 @@ export default function imagesReducer(state = { images: {} }, action) {
             const newState = {
                 ...state,
                 [action.payload.postId]: {
-                    ...state[action.payload.postId]
+                    ...state[action.payload.postId],
+                    tags: {
+                        ...state[action.payload.postId].tags,
+                        [action.payload.id]: action.payload
+                    }
                 }
             }
-
-            newState[action.payload.postId].tags = [ ...newState[action.payload.postId].tags, action.payload ];
 
             return newState;
         }

@@ -36,6 +36,8 @@ export default function AddTagForm({ tags, postId }) {
             return;
         }
 
+        setTag('');
+
         await dispatch(TagsActions.addTagToPost(tag, postId));
 
         setShowErrors(false);
