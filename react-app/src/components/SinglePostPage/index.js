@@ -9,6 +9,8 @@ import defaultProfileImage from '../../static/default-profile-image.png';
 import CommentsSection from '../CommentsSection';
 import AddCommentForm from '../AddCommentForm';
 import CommentsList from '../CommentsList';
+import TagsSection from '../TagsSection';
+import AddTagForm from '../AddTagForm';
 
 export default function SinglePostPage() {
     const dispatch = useDispatch();
@@ -34,16 +36,13 @@ export default function SinglePostPage() {
     useEffect(() => {
         (async () => {
             await dispatch(imageActions.getImage(+id));
-            // if(!image) {
-            //     history.push('/404');
-            // }
             setIsLoaded(true);
         })()
     }, [dispatch, id]);
 
     async function saveNewTitle() {
         if(newTitle === undefined) {
-
+            return;
         }
 
         if(newTitle.length > 50) {
@@ -85,7 +84,7 @@ export default function SinglePostPage() {
             </div>
             <div id='post-information'>
                 <div id='post-user-profile-image-div'>
-                    <img src={post?.user?.profileImageUrl === '/default-profile-image.png' ? defaultProfileImage : post.user.profileImageUrl} alt='user' id='user-profile-image'/>
+                    <img src={post?.user?.profileImageUrl === '/default-profile-image.png' ? defaultProfileImage : post?.user?.profileImageUrl} alt='user' id='user-profile-image'/>
                 </div>
                 <div id='post-information-text'>
                     {editPost ?
@@ -122,8 +121,11 @@ export default function SinglePostPage() {
                     </div>
                 }
             </div>
+            <div id='tags-section'>
+                <TagsSection tags={post?.tags} />
+                <AddTagForm tags={post.tags} postId={post?.id} />
+            </div>
             <div id='comments-section'>
-                {/* <CommentsSection /> */}
                 <h1>Comments</h1>
                 <AddCommentForm post={post} />
                 <CommentsList comments={comments} />

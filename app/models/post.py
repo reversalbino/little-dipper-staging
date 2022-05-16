@@ -1,4 +1,5 @@
 from .db import db
+from .tagged_images import tagged_images
 from sqlalchemy.sql import func
 
 class Post(db.Model):
@@ -13,6 +14,7 @@ class Post(db.Model):
 
     user = db.relationship('User', back_populates='posts')
     comments = db.relationship('Comment', back_populates='post', cascade="all, delete")
+    tags = db.relationship('Tag', secondary=tagged_images, back_populates='posts')
 
     def to_dict_lite(self):
         return {
@@ -35,5 +37,7 @@ class Post(db.Model):
             'comments': [comment.to_dict() for comment in self.comments],
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt,
-            'user': self.user.to_dict()
+            'user': self.user.to_dict(),
+            'tags': []
+            # 'tags': [tag.to_dict_lite() for tag in self.tags]
         }

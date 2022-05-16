@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from sqlalchemy import desc
-from app.forms import CreateCommentForm, EditCommentForm
+from app.forms import CreateCommentForm, EditCommentForm, CreateTagForm
 from app.models import comment, db, Comment
 from app.api.utils import validation_errors_to_error_messages
 

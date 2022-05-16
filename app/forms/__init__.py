@@ -4,3 +4,4 @@ from .posts_forms import CreatePostForm
 from .posts_forms import EditPostForm
 from .comment_form import CreateCommentForm
 from .comment_form import EditCommentForm
+from .tag_form import CreateTagForm

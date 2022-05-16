@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
-from app.forms import CreatePostForm, EditPostForm
+from app.forms import CreatePostForm, EditPostForm, CreateTagForm
 from app.models import db, Post
 from app.api.utils import validation_errors_to_error_messages
 from sqlalchemy import desc
@@ -83,3 +83,15 @@ def edit_image(postId):
             return jsonify(post.to_dict())
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+#ADD TAG TO IMAGE
+# @images_routes.route('/tag/<int:postId>/', methods=['POST'])
+# def add_tag(postId):
+#     form = CreateTagForm()
+
+#     form['csrf_token'].data = request.cookies['csrf_token']
+
+#     image = Post.query.get(postId)
+
+#     if form.validate_on_submit():

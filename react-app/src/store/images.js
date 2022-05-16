@@ -170,6 +170,24 @@ export const deletePostComment = (comment) => async (dispatch) => {
     }
 }
 
+
+// IMAGE TAGS
+
+export const addTagToPost = (tag, postId) => async (dispatch) => {
+
+    console.log(`\n\n\nCREATING TAG ${tag} ${postId}\n\n\n`)
+
+    const data = await fetch(`/api/tags/${+postId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tag)
+    });
+
+    console.log('addTagToPost ~ data', data);
+}
+
 export default function imagesReducer(state = { images: {} }, action) {
     switch (action.type) {
         case LOAD_IMAGE: {
