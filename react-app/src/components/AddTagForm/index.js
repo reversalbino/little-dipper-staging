@@ -17,7 +17,7 @@ export default function AddTagForm({ tags, postId }) {
             tempErrors.push('Please enter a tag');
         }
 
-        if(tags.find(existingTag => existingTag.tag === tag)) {
+        if(tags.find(existingTag => existingTag.tag === tag.trim())) {
             tempErrors.push('Tag already exists');
         }
 
@@ -44,15 +44,23 @@ export default function AddTagForm({ tags, postId }) {
     }
 
     return (
-        <form onSubmit={addTag} >
-            <label for='tag-input'>Tag</label>
-            <input
-                id='tag-input'
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}
-                placeholder='Add new tag'
-            ></input>
-            <button type='submit'>Add Tag</button>
-        </form>
+        <div id='add-tag-form'>
+            {showErrors && (
+                <ul id='tag-errors'>
+                    {errors.map(error => {
+                        return <li key={error}>{error}</li>
+                    })}
+                </ul>
+            )}
+            <form onSubmit={addTag} >
+                <input
+                    id='tag-input'
+                    value={tag}
+                    onChange={(e) => setTag(e.target.value)}
+                    placeholder='Add new tag'
+                ></input>
+                <button type='submit'>Add Tag</button>
+            </form>
+        </div>
     )
 }
