@@ -11,6 +11,7 @@ const DELETE_COMMENT = 'images/DELETE_COMMENT';
 const EDIT_COMMENT = 'images/EDIT_COMMENT';
 
 const ADD_TAG = 'images/ADD_TAG';
+const DELETE_TAG = 'images/DELETE_TAG';
 
 // Images
 
@@ -66,7 +67,12 @@ const editComment = (editedComment) => ({
 const createTag = (postIdAndTag) => ({
     type: ADD_TAG,
     payload: postIdAndTag
-})
+});
+
+const deleteTag = (tagToDelete) => ({
+    type: DELETE_TAG,
+    payload: tagToDelete
+});
 
 export const getImage = (id) => async (dispatch) => {
     const data = await fetch(`/api/images/${id}/`);
@@ -198,6 +204,20 @@ export const addTagToPost = (tag, postId) => async (dispatch) => {
     }
 }
 
+export const deleteTagFromPost = (tag, postId) => async (dispatch) => {
+    const data = await fetch(`/api/tags/${postId}/${tag.id}/`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if(data.ok) {
+        const response = await data.json();
+        dispatch(deleteTag({ response, postId }));
+    }
+}
+
 export default function imagesReducer(state = { images: {} }, action) {
     switch (action.type) {
         case LOAD_IMAGE: {
@@ -295,8 +315,6 @@ export default function imagesReducer(state = { images: {} }, action) {
             return newState;
         }
         case ADD_TAG: {
-            console.log('\n\ncurrent tags', state[action.payload.postId].tags, '\n\n')
-            console.log('\n\naction', action.payload, '\n\n')
             const newState = {
                 ...state,
                 [action.payload.postId]: {
@@ -305,6 +323,23 @@ export default function imagesReducer(state = { images: {} }, action) {
                         ...state[action.payload.postId].tags,
                         [action.payload.id]: action.payload
                     }
+                }
+            }
+
+            return newState;
+        }
+        case DELETE_TAG: {
+            const newTags = { ...state[action.payload.postId].tags };
+            console.log('imagesReducer ~ newTags', newTags);
+            delete newTags[action.payload.response.id]
+
+            console.log('imagesReducer ~ newTags', newTags);
+
+            const newState = {
+                ...state,
+                [action.payload.postId]: {
+                    ...state[action.payload.postId],
+                    tags: newTags
                 }
             }
 

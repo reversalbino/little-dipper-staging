@@ -122,7 +122,7 @@ export default function SinglePostPage() {
                 }
             </div>
             <div id='tags-section'>
-                <TagsSection tags={Object.values(post?.tags)} />
+                <TagsSection tags={Object.values(post?.tags)} postId={id} />
                 <AddTagForm tags={Object.values(post?.tags)} postId={id} />
             </div>
             <div id='comments-section'>
