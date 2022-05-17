@@ -14,17 +14,24 @@ def add_tag(postId):
 
     if form.validate_on_submit():
         value = form['tag'].data
-        tag = Tag.query.filter(str(Tag.tag).lower() == value.lower()).first()
+        tag = Tag.query.filter(Tag.tag == value).first()
         image = Post.query.get(postId)
 
+        print('\n\n', tag.to_dict_lite(), '\n\n')
+
         if tag:
+            print('\n\nFOUND TAG\n\n')
             for post in tag.posts:
                 if int(post.id) == int(postId):
+                    print('\n\nALREADY EXISTS\n\n')
                     return jsonify('Image already has that tag'), 401
 
             tag.posts.append(image)
+            db.session.commit()
+
             return jsonify(tag.to_dict_lite())
         else:
+            print('\n\CREATING TAG\n\n')
             value = {'tag': form['tag'].data}
             new_tag = Tag(**value)
             db.session.add(new_tag)
