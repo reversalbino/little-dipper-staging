@@ -61,13 +61,29 @@ def delete_tag(postId, tagId):
 
 @tags_routes.route('/search/<query>/', methods=['GET'])
 def search(query):
+
+    print('\n\n', query, '\n\n')
+
     exact_matches = Tag.query.filter(Tag.tag == query).first()
     case_insensitive_matches = Tag.query.filter(Tag.tag.ilike(query)).all()
     matches_containing_the_query = Tag.query.filter(Tag.tag.ilike('%' + query + '%')).all()
 
-    all_matches = exact_matches + case_insensitive_matches + matches_containing_the_query
+    all_matches = []
 
-    returned = set(list(dict.fromkeys(all_matches)))
+    if exact_matches:
+        all_matches += exact_matches.posts
+
+    if len(case_insensitive_matches) > 0:
+        for tag in case_insensitive_matches:
+            all_matches += tag.posts
+
+    if len(matches_containing_the_query) > 0:
+        for tag in matches_containing_the_query:
+            all_matches += tag.posts
+
+    returned = [post.to_dict_lite() for post in list(set(all_matches))]
 
     for match in returned:
-        print(match.to_dict_lite())
+        print('\n\n', match, '\n\n')
+
+    return jsonify(returned)

@@ -12,6 +12,7 @@ import AddPost from './components/AddPost/addPost';
 import FeedPage from './components/FeedPage';
 import SinglePostPage from './components/SinglePostPage';
 import Footer from './components/Footer/index';
+import SearchResultsPage from './components/SearchResultsPage/index';
 
 function App() {
     const [loaded, setLoaded] = useState(false);
@@ -52,6 +53,9 @@ function App() {
                 </ProtectedRoute>
                 <ProtectedRoute path='/pictures/:id'>
                     <SinglePostPage />
+                </ProtectedRoute>
+                <ProtectedRoute path='/search/:query'>
+                    <SearchResultsPage />
                 </ProtectedRoute>
                 <Route>
                     <h1>Page not found</h1>

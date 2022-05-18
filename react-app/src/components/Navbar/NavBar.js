@@ -1,7 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, Redirect } from 'react-router-dom';
 
+import SearchBar from '../SearchBar';
 import LogoutButton from '../auth/LogoutButton';
 import AddPost from '../AddPost/addPost';
 import './Navbar.css';
@@ -18,6 +19,7 @@ const NavBar = () => {
 						<img src={logo} alt='logo' id='logo' />
 					</NavLink>
 				</li>
+			<SearchBar />
 				{sessionUser ?
 					<div id='add-picture-and-logout-buttons'>
 						<li>

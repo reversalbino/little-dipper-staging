@@ -221,16 +221,21 @@ export const deleteTagFromPost = (tag, postId) => async (dispatch) => {
 // SEARCH
 
 export const searchForPosts = (query) => async (dispatch) => {
+
+    console.log('\n\n', query, '\n\n');
+
     const data = await fetch(`/api/tags/search/${query}/`);
 
     if(data.ok) {
         const response = await data.json();
 
+        console.log('\n\nimages found\n\n', response);
+
         dispatch(loadImages(response));
     }
 }
 
-export default function imagesReducer(state = { images: {} }, action) {
+export default function imagesReducer(state = {}, action) {
     switch (action.type) {
         case LOAD_IMAGE: {
             const newState = { ...state };
@@ -253,12 +258,13 @@ export default function imagesReducer(state = { images: {} }, action) {
             return newState;
         }
         case LOAD_IMAGES: {
-            const newState = { ...state };
+            const state = { };
 
             for(let i = 0; i < action.payload.length; i++) {
-                newState[action.payload[i].id] = action.payload[i];
+                state[action.payload[i].id] = action.payload[i];
             }
 
+            let newState = { ...state }
 
             return newState;
         }

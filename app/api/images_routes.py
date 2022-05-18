@@ -10,7 +10,6 @@ images_routes = Blueprint('images', __name__)
 @images_routes.route('/')
 def get_images():
     posts = Post.query.order_by(desc(Post.createdAt)).all()
-    print('\n\n', posts, '\n\n')
 
     posts = [post.to_dict_lite() for post in posts]
 
