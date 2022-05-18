@@ -218,6 +218,18 @@ export const deleteTagFromPost = (tag, postId) => async (dispatch) => {
     }
 }
 
+// SEARCH
+
+export const searchForPosts = (query) => async (dispatch) => {
+    const data = await fetch(`/api/tags/search/${query}/`);
+
+    if(data.ok) {
+        const response = await data.json();
+
+        dispatch(loadImages(response));
+    }
+}
+
 export default function imagesReducer(state = { images: {} }, action) {
     switch (action.type) {
         case LOAD_IMAGE: {

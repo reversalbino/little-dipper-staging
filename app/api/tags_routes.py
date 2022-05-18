@@ -13,17 +13,13 @@ def add_tag(postId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        value = form['tag'].data
+        value = form['tag'].data.strip()
         tag = Tag.query.filter(Tag.tag == value).first()
         image = Post.query.get(postId)
 
-        print('\n\n', tag.to_dict_lite(), '\n\n')
-
         if tag:
-            print('\n\nFOUND TAG\n\n')
             for post in tag.posts:
                 if int(post.id) == int(postId):
-                    print('\n\nALREADY EXISTS\n\n')
                     return jsonify('Image already has that tag'), 401
 
             tag.posts.append(image)
@@ -31,7 +27,6 @@ def add_tag(postId):
 
             return jsonify(tag.to_dict_lite())
         else:
-            print('\n\CREATING TAG\n\n')
             value = {'tag': form['tag'].data}
             new_tag = Tag(**value)
             db.session.add(new_tag)
@@ -50,9 +45,6 @@ def delete_tag(postId, tagId):
     tag = Tag.query.get(tagId)
     post = Post.query.get(postId)
 
-    print('\n\n\n', post.to_dict_lite()['userId'], '\n\n\n')
-    print('\n\n\n', session['_user_id'], '\n\n\n')
-
     if tag and (post.to_dict_lite()['userId'] == int(session['_user_id'])):
         if len(tag.posts) == 1:
             tag.posts.remove(post)
@@ -61,6 +53,21 @@ def delete_tag(postId, tagId):
             return jsonify(tag.to_dict_lite())
         elif len(tag.posts) > 1:
             tag.posts.remove(post)
+            db.session.commit()
             return jsonify(tag.to_dict_lite())
         else:
             return jsonify('Error: image doesn\'t seem to have that tag...'), 401
+
+
+@tags_routes.route('/search/<query>/', methods=['GET'])
+def search(query):
+    exact_matches = Tag.query.filter(Tag.tag == query).first()
+    case_insensitive_matches = Tag.query.filter(Tag.tag.ilike(query)).all()
+    matches_containing_the_query = Tag.query.filter(Tag.tag.ilike('%' + query + '%')).all()
+
+    all_matches = exact_matches + case_insensitive_matches + matches_containing_the_query
+
+    returned = set(list(dict.fromkeys(all_matches)))
+
+    for match in returned:
+        print(match.to_dict_lite())
