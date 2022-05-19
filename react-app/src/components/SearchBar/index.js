@@ -20,7 +20,6 @@ export default function SearchBar() {
 			return;
 		}
 		else {
-            console.log('\n\nSEARCH TERM: ', searchTerm, '\n\n')
             history.push(`/search/${searchTerm}`)
 		}
 	}

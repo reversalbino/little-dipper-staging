@@ -221,15 +221,10 @@ export const deleteTagFromPost = (tag, postId) => async (dispatch) => {
 // SEARCH
 
 export const searchForPosts = (query) => async (dispatch) => {
-
-    console.log('\n\n', query, '\n\n');
-
     const data = await fetch(`/api/tags/search/${query}/`);
 
     if(data.ok) {
         const response = await data.json();
-
-        console.log('\n\nimages found\n\n', response);
 
         dispatch(loadImages(response));
     }
@@ -348,10 +343,7 @@ export default function imagesReducer(state = {}, action) {
         }
         case DELETE_TAG: {
             const newTags = { ...state[action.payload.postId].tags };
-            console.log('imagesReducer ~ newTags', newTags);
             delete newTags[action.payload.response.id]
-
-            console.log('imagesReducer ~ newTags', newTags);
 
             const newState = {
                 ...state,

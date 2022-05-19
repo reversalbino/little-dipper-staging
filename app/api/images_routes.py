@@ -45,7 +45,6 @@ def create_image():
         db.session.add(post)
         db.session.commit()
         return jsonify(post.to_dict())
-    print(form.errors)
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -72,45 +71,11 @@ def edit_image(postId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        print('\n\n', userId, post.userId, '\n\n')
         if int(userId) != int(post.userId):
             return jsonify('Invalid Request'), 401
         else:
-            print('\n\nequal\n\n')
             post.title = form['title'].data
             db.session.commit()
             return jsonify(post.to_dict())
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
-
-# #ADD TAG TO IMAGE
-# @images_routes.route('/tags/<int:postId>/', methods=['POST'])
-# def add_tag(postId):
-#     print('\n\n\nBEFORE\n\n\n')
-#     form = CreateTagForm()
-#     print('\n\n\nAFTER\n\n\n')
-
-#     form['csrf_token'].data = request.cookies['csrf_token']
-
-#     if form.validate_on_submit():
-#         value = form['tag'].data
-#         tag = Tag.query.filter(Tag.tag.lower() == value.lower()).first()
-#         image = Post.query.get(postId)
-
-#         if tag:
-#             for post in tag.posts:
-#                 if int(post.id) == int(postId):
-#                     return jsonify('Image already has that tag'), 401
-
-#             tag.posts.append(image)
-#             return jsonify(tag.to_dict_lite())
-#         else:
-#             new_tag = Tag(value)
-#             db.session.add(new_tag)
-#             db.session.commit()
-
-#             new_tag.posts.add(image)
-#             return jsonify(tag.to_dict_lite())
-#     else:
-#         return jsonify('Failed'), 401

@@ -40,6 +40,8 @@ def add_tag(postId):
         return jsonify('Failed'), 401
 
 
+# DELETE TAG FROM IMAGES
+# THIS ALSO DELETES TAGS IF NO IMAGES HAVE THAT TAG
 @tags_routes.route('/<int:postId>/<int:tagId>/', methods=['DELETE'])
 def delete_tag(postId, tagId):
     tag = Tag.query.get(tagId)
@@ -59,11 +61,9 @@ def delete_tag(postId, tagId):
             return jsonify('Error: image doesn\'t seem to have that tag...'), 401
 
 
+# GET ALL IMAGES WITH A SEARCH QUERY, WHETHER IN THE TITLE OR HAS A TAG CONTAINING THAT QUERY
 @tags_routes.route('/search/<query>/', methods=['GET'])
 def search(query):
-
-    print('\n\n', query, '\n\n')
-
     posts_with_query_in_title = Post.query.filter(Post.title.ilike('%' + query + '%')).all()
     exact_matches = Tag.query.filter(Tag.tag == query).first()
     case_insensitive_matches = Tag.query.filter(Tag.tag.ilike(query)).all()
@@ -86,8 +86,5 @@ def search(query):
             all_matches += tag.posts
 
     returned = [post.to_dict_lite() for post in list(set(all_matches))]
-
-    for match in returned:
-        print('\n\n', match, '\n\n')
 
     return jsonify(returned)

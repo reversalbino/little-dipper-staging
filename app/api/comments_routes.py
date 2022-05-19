@@ -20,7 +20,6 @@ def add_comment(postId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        print('\n\n\n IN VALIDATE \n\n\n')
         data = {
             'userId': session['_user_id'],
             'postId': postId,
@@ -32,7 +31,6 @@ def add_comment(postId):
         db.session.commit()
         return jsonify(comment.to_dict())
 
-    print('\n\n\nFAILED\n\n\n')
     return jsonify('Invalid Request'), 401
 
 
@@ -45,10 +43,6 @@ def edit_comment(commentId):
 
     if form.validate_on_submit():
         comment_to_edit = Comment.query.get(commentId)
-
-        print('\n\n\nnew comment', comment.get('userId'))
-
-        print('\n\n\nexisting comment', comment_to_edit.userId)
 
         if int(comment.get('userId')) == int(comment_to_edit.userId):
             comment_to_edit.content = form['content'].data

@@ -9,12 +9,10 @@ export default function SearchResultsPage() {
     const dispatch = useDispatch();
 
     const { query } = useParams();
-    console.log('SearchResultsPage ~ query', query);
 
     const [isLoaded, setIsLoaded] = useState(false)
 
     const searchResults = Object.values(useSelector(state => state.images));
-    console.log('SearchResultsPage ~ searchResults', searchResults);
 
     useEffect(() => {
         (function() {
