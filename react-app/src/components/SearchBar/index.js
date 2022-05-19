@@ -9,9 +9,9 @@ export default function SearchBar() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const { term } = useParams();
+    const { query } = useParams();
 
-    const [searchTerm, setSearchTerm] = useState(term ? term : '');
+    const [searchTerm, setSearchTerm] = useState(query ? query : '');
 
     function search(e) {
 		e.preventDefault();
@@ -22,8 +22,6 @@ export default function SearchBar() {
 		else {
             console.log('\n\nSEARCH TERM: ', searchTerm, '\n\n')
             history.push(`/search/${searchTerm}`)
-            window.location.reload(false);
-			// return <Redirect to={`/search/${searchTerm}`} />
 		}
 	}
 
