@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch} from 'react-redux';
 
 import * as imageActions from '../../store/images';
+import './TagsSection.css';
 
 export default function TagsSection({ tags, postId }) {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export default function TagsSection({ tags, postId }) {
 
     :
 
-        <ul>
+        <ul id='tags-list'>
             {tags.map(tag => {
                 return (
                     <li
@@ -33,10 +34,11 @@ export default function TagsSection({ tags, postId }) {
                             setShowButtons(false)
                             setTagButtonsToShow(-Infinity)
                         }}
+                        className='single-tag'
                     >
                         {tag.tag}
                         {(showButtons && tagButtonsToShow === tag.id) &&
-                            <button onClick={() => deleteImage(tag)}>X</button>
+                            <button id='delete-tag-button' onClick={() => deleteImage(tag)}>X</button>
                         }
                     </li>
                 )

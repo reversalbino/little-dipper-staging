@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 
 import LoadingAnimation from '../LoadingAnimation';
 import * as imageActions from '../../store/images';
+import './SearchResultsPage.css';
 
 export default function SearchResultsPage() {
     const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function SearchResultsPage() {
 
     return !isLoaded ? <LoadingAnimation /> : (
         <div id='search-results'>
-            <h1>Search results for {query}</h1>
+            <h1>Search results for '{query}'</h1>
             {
                 searchResults.length > 0 ?
                     <div id='feed-images'>

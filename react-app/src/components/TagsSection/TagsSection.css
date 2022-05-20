@@ -1,0 +1,28 @@
+#tags-list {
+    margin: auto;
+    list-style: none;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    width: 200px;
+    justify-content: flex-start;
+    padding: 0px;
+}
+
+.single-tag {
+    border: 1px solid gray;
+    padding: 3px 7px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+#delete-tag-button {
+    height: 100%;
+    background-color: transparent;
+    text-align: center;
+    border: none;
+}
+
+#delete-tag-button:hover {
+    cursor: pointer;
+}

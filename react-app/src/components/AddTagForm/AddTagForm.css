@@ -1,0 +1,25 @@
+#add-tag-form {
+    margin: 3px 0;
+}
+
+#tag-input {
+    height: 30px;
+    font-size: 14px;
+}
+
+#add-tag-form form button {
+    height: 30px;
+    width: 70px;
+    font-size: 14px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    color: white;
+    background-color: #3498db;
+    transition: background-color .15s ease-in-out;
+    cursor: pointer;
+}
+
+#add-tag-form form button:hover {
+    background-color: #256793;
+}

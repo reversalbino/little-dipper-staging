@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import * as TagsActions from '../../store/images';
+import './AddTagForm.css';
 
 export default function AddTagForm({ tags, postId }) {
     const dispatch = useDispatch();
