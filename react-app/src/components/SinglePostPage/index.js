@@ -129,7 +129,7 @@ export default function SinglePostPage() {
                 </div>
                 <div id='comments-section'>
                     <h1>Comments</h1>
-                    <AddCommentForm post={post} />
+                    {sessionUser.id === post.userId && <AddCommentForm post={post} /> }
                     <CommentsList comments={comments} />
                 </div>
             </div>
