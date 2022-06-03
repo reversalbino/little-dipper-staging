@@ -265,7 +265,6 @@ export default function imagesReducer(state = {}, action) {
         }
         case ADD_IMAGE: {
             const newState = { ...state };
-            // newState.images = { ...state.images };
             newState[action.payload.id] = action.payload;
 
             return newState;
