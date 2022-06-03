@@ -22,6 +22,7 @@ const NavBar = () => {
 			<SearchBar />
 				{sessionUser ?
 					<div id='add-picture-and-logout-buttons'>
+						<p id='hello-user'>Hello, {sessionUser.username}</p>
 						<li>
 							<button id='new-picture-button'>
 								<NavLink to='/pictures/new' >

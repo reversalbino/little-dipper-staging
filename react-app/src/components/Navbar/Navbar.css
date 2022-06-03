@@ -47,3 +47,8 @@ a {
 #signup-button:hover {
     background-color: #256793;
 }
+
+#hello-user {
+    font-size: 17px;
+    margin: 10px;
+}
