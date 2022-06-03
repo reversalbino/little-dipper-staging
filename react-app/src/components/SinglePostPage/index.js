@@ -125,7 +125,7 @@ export default function SinglePostPage() {
                 <div id='tags-section'>
                     <h1>Tags</h1>
                     {sessionUser.id === post.userId &&  <AddTagForm tags={Object.values(post?.tags)} postId={id} /> }
-                    <TagsSection tags={Object.values(post?.tags)} postId={id} />
+                    <TagsSection tags={Object.values(post?.tags)} postId={id} sameUser={sessionUser.id === post.userId} />
                 </div>
                 <div id='comments-section'>
                     <h1>Comments</h1>

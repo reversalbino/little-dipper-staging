@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as imageActions from '../../store/images';
 import './TagsSection.css';
 
-export default function TagsSection({ tags, postId }) {
+export default function TagsSection({ tags, postId, sameUser }) {
+    console.log('TagsSection ~ sameUser', sameUser);
+    const sessionUser = useSelector(state => state.session.user);
+
     const dispatch = useDispatch();
 
     const [showButtons, setShowButtons] = useState(false);
@@ -27,12 +30,16 @@ export default function TagsSection({ tags, postId }) {
                     <li
                         key={tag.id}
                         onMouseEnter={() => {
-                            setShowButtons(true)
-                            setTagButtonsToShow(tag.id)
+                            if(sameUser) {
+                                setShowButtons(true)
+                                setTagButtonsToShow(tag.id)
+                            }
                         }}
                         onMouseLeave={() => {
-                            setShowButtons(false)
-                            setTagButtonsToShow(-Infinity)
+                            if(sameUser) {
+                                setShowButtons(false)
+                                setTagButtonsToShow(-Infinity)
+                            }
                         }}
                         className='single-tag'
                     >
