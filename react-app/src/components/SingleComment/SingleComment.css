@@ -43,3 +43,7 @@
 .single-comment button:hover {
     background-color: #256793;
 }
+
+#comment-username {
+    margin-left: -50px;
+}

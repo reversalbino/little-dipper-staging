@@ -6,6 +6,7 @@ import defaultProfileImage from '../../static/default-profile-image.png';
 import './SingleComment.css'
 
 export default function SingleComment({ comment }) {
+    console.log('SingleComment ~ comment', comment);
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
@@ -52,6 +53,7 @@ export default function SingleComment({ comment }) {
 
     <div className='single-comment'>
         <img src={comment.user.profileImageUrl === '/default-profile-image.png' ? defaultProfileImage : comment.user.profileImageUrl} alt={comment.user.username} />
+        <p id='comment-username'>{comment.user.username}</p>
         <p className='comment-text'>{comment.content}</p>
         {sessionUser.id === comment.userId ?
             <div id='edit-and-delete-comment-buttons'>
